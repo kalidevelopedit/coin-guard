@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Coin Guard"
+version = "1.0.0"
+id = "artifacts/coin-guard"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22246
+
+[services.development]
+run = "pnpm --filter @workspace/coin-guard run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/coin-guard", "run", "build" ]
+publicDir = "artifacts/coin-guard/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22246"
+BASE_PATH = "/"
